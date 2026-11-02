@@ -395,8 +395,10 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             key: ValueKey(imageList.first),
             fit: BoxFit.cover,
             width: double.infinity,
-            placeholder: (context, url) =>
-                Container(color: context.palette.surfaceMuted),
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Container(color: context.palette.surfaceMuted);
+            },
             errorBuilder: (context, error, stackTrace) => Container(
               color: context.palette.surfaceMuted,
               child: Column(
