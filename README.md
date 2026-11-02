@@ -1,46 +1,114 @@
 # SiteDrop
 
-SiteDrop is a full-stack construction site management platform connecting sellers, buyers, drivers, and site teams. It features a Flutter seller mobile app and a Laravel-based backend API with an admin dashboard.
-
-## Structure
+SiteDrop is a construction logistics and building-materials marketplace platform connecting buyers, sellers, drivers, and site teams. It consists of a **Laravel backend API + web dashboard** and **Flutter mobile apps** for each role, sharing a common core package.
 
 ```
-SiteDrop/
-├── apps/                      # Flutter applications
-│   ├── seller_app/            # Seller mobile app (Android/iOS/Web/Desktop)
-│   └── packages/
-│       └── sitedrop_core/     # Shared core package
-├── backend/                   # Laravel API + Inertia admin dashboard
-│   ├── app/
-│   ├── config/
-│   ├── database/
-│   ├── routes/
-│   ├── resources/             # React/Inertia frontend
-│   ├── tests/
-│   └── docs/
-├── .github/                   # CI/CD workflows
-└── README.md
+SiteDrop/                          # monorepo root
+├── README.md                      # this file
+├── .gitignore
+├── .github/                       # CI/CD workflows
+├── backend/                       # Laravel 12 API + Inertia/React admin dashboard
+│   ├── README.md                  # backend setup & API docs
+│   └── docs/                      # setup, architecture, api-overview
+└── apps/                          # Flutter monorepo
+    ├── README.md                  # apps overview & run instructions
+    ├── Makefile                   # run/build targets
+    ├── buyer_app/                 # buyer marketplace (store build)
+    ├── seller_app/                # seller store app
+    ├── driver_app/                # driver delivery app
+    └── packages/
+        └── sitedrop_core/         # shared API client, models, theme, widgets
 ```
 
-## Backend
+## What is SiteDrop?
 
-Laravel-based REST API with Sanctum authentication, role-based permissions, and an Inertia.js admin dashboard.
+SiteDrop connects construction project owners, material suppliers, and delivery fleets on one platform:
 
-- [`backend/README.md`](backend/README.md) — setup, configuration, and API docs
-- [`backend/docs/`](backend/docs/) — architecture and setup guides
+| Role | What they do |
+|------|--------------|
+| **Buyer** | Browse materials, manage construction sites, place orders, track deliveries |
+| **Seller** | Onboard, list products (cement, aggregates, steel…), fulfill orders |
+| **Driver** | Accept deliveries, update live location, log trips with registered trucks |
+| **Admin / Ops** | Manage users, roles, orders, analytics, trucks, platform settings |
 
-## Seller App
+Key domain concepts: **Sites** (construction projects), **Products** (building materials), **Trucks** (fleet vehicles), **Orders / Deliveries / Trip Logs** (order-to-delivery lifecycle with payments).
 
-Flutter application for sellers to manage sites, products, orders, and deliveries.
+## Tech Stack
 
-- [`apps/seller_app/README.md`](apps/seller_app/README.md) — app setup and build instructions
+| Layer | Technology |
+|-------|------------|
+| Backend API | Laravel 12 (PHP 8.2+) |
+| Auth | Laravel Fortify + Sanctum |
+| Authorization | Spatie Laravel Permission |
+| Web Frontend | Inertia.js 2 + React 19 + TypeScript |
+| Styling | Tailwind CSS 4 + shadcn-like components |
+| Mobile Apps | Flutter (buyer / seller / driver) |
+| Shared Mobile Core | `sitedrop_core` Dart package |
+| Database | SQLite (default) / MySQL / PostgreSQL |
+| Payments | Paystack + Hubtel |
+| Push | Firebase Cloud Messaging (FCM) |
 
-## Core Package
+## Getting Started
 
-Shared Dart package used across Flutter apps.
+### Backend (`sitedrop/backend/`)
 
-- [`apps/packages/sitedrop_core/`](apps/packages/sitedrop_core/)
+```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+npm install
+touch database/database.sqlite
+php artisan migrate --seed
+php artisan serve
+npm run dev
+```
+
+Full details: [`backend/README.md`](backend/README.md), [`backend/docs/setup.md`](backend/docs/setup.md).
+
+### Flutter Apps (`sitedrop/apps/`)
+
+Three store builds — one app per role — powered by the shared `sitedrop_core` package:
+
+```bash
+cd apps
+
+# Install deps for all apps
+make get
+
+# Run buyer (Chrome)
+make run-buyer-dev
+
+# Run seller (Chrome)
+make run-seller-dev
+
+# Run driver (Chrome)
+make run-driver-dev
+```
+
+Each app needs `APP_ROLE` and `API_BASE_URL` dart-defines (see [`apps/Makefile`](apps/Makefile) and [`apps/README.md`](apps/README.md)).
+
+Example for seller:
+```bash
+cd apps/seller_app
+flutter pub get
+flutter run -d chrome \
+  --dart-define=APP_ROLE=seller \
+  --dart-define=API_BASE_URL=http://localhost:8000
+```
+
+## Documentation
+
+| Doc | Path |
+|-----|------|
+| Monorepo overview | [`README.md`](README.md) |
+| Apps (buyer/seller/driver) | [`apps/README.md`](apps/README.md) |
+| Shared core package | [`apps/packages/sitedrop_core/README.md`](apps/packages/sitedrop_core/README.md) |
+| Backend setup | [`backend/README.md`](backend/README.md) |
+| Backend setup guide | [`backend/docs/setup.md`](backend/docs/setup.md) |
+| Architecture | [`backend/docs/architecture.md`](backend/docs/architecture.md) |
+| API overview | [`backend/docs/api-overview.md`](backend/docs/api-overview.md) |
 
 ## License
 
-MIT
+Private project — SiteDrop. Not open source.
