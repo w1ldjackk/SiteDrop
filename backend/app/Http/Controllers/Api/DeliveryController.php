@@ -626,7 +626,7 @@ class DeliveryController extends Controller
     }
 
     // ============================================================
-    // BOLT-STYLE DISPATCH (broadcast offers, first-accept wins)
+    // DISPATCH (broadcast offers, first-accept wins)
     // ============================================================
 
     /**
