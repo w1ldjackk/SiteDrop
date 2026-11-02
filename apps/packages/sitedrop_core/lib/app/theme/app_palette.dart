@@ -85,7 +85,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
 
   // Not `const` — grey/semantic tokens come from tailwind_colors at runtime.
   static final AppPalette light = AppPalette(
-    background: AppColors.grey50,
+    background: AppColors.surface,
     surface: AppColors.white,
     surfaceMuted: AppColors.grey100,
     surfaceElevated: AppColors.white,
@@ -146,7 +146,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     errorBg: const Color(0xFF3F1A1A),
     warningBg: const Color(0xFF3D3010),
     infoBg: const Color(0xFF0F2744),
-    primarySoft: const Color(0xFF163526),
+    primarySoft: const Color(0xFF3A241E),
     chipBg: const Color(0xFF1C2538),
     chipText: const Color(0xFFE5E7EB),
     navBarBg: const Color(0xFF151C2C),

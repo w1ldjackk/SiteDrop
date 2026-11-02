@@ -9,11 +9,11 @@ export 'app_palette.dart';
 
 class AppColors {
   // Brand Colors (same in light & dark; primaryLight used on dark surfaces)
-  static const Color primary = Color(0xFF1A8E5A);
-  static const Color primaryLight = Color(0xFF4CAF50);
-  static const Color primaryDark = Color(0xFF0F6B42);
-  static const Color primarySurface = Color(0xFFE8F5E9);
-  static const Color primaryLightest = Color(0xFFF0FFF4);
+  static const Color primary = Color(0xFFC8553D);
+  static const Color primaryLight = Color(0xFFD97A63);
+  static const Color primaryDark = Color(0xFFA3412E);
+  static const Color primarySurface = Color(0xFFF5EDE6);
+  static const Color primaryLightest = Color(0xFFFAF4EF);
 
   // Secondary / amber from Tailwind v3
   static final Color secondary = TW3Colors.amber.shade500;
@@ -34,8 +34,8 @@ class AppColors {
   static final Color grey500 = TW3Colors.gray.shade500;
   static final Color grey600 = TW3Colors.gray.shade600;
   static final Color grey700 = TW3Colors.gray.shade700;
-  static final Color grey800 = TW3Colors.gray.shade800;
-  static final Color grey900 = TW3Colors.gray.shade900;
+  static const Color grey800 = Color(0xFF4A4A4A);
+  static const Color grey900 = Color(0xFF2B2B2B);
 
   // Semantic Colors (Tailwind v3)
   static final Color success = TW3Colors.emerald.shade500;
@@ -54,11 +54,11 @@ class AppColors {
   static const Color ghanaFlagBlack = Color(0xFF000000);
 
   // Additional UI Colors
-  static final Color muted = TW3Colors.gray.shade500;
+  static final Color muted = Color(0xFF4A4A4A);
   static final Color accent = TW3Colors.amber.shade500;
-  static final Color surface = TW3Colors.gray.shade50!;
-  static final Color onSurface = TW3Colors.gray.shade900;
-  static final Color onBackground = TW3Colors.gray.shade900;
+  static final Color surface = Color(0xFFF5EDE6);
+  static final Color onSurface = Color(0xFF2B2B2B);
+  static final Color onBackground = Color(0xFF2B2B2B);
   static const Color inputBackground = Color(0xFFF8FAFC);
   static const Color inputBorder = Color(0xFFCBD5E1);
   static const Color inputFocusedBorder = primary;

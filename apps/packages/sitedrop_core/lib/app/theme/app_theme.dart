@@ -66,7 +66,7 @@ class AppTheme {
       inputDecorationTheme: _inputTheme(palette, Brightness.light),
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: AppColors.primary,
-        selectionColor: Color(0x331A8E5A),
+        selectionColor: Color(0x33C8553D),
         selectionHandleColor: AppColors.primary,
       ),
       elevatedButtonTheme: _elevatedButton(Brightness.light),
