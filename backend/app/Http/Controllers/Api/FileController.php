@@ -45,9 +45,11 @@ class FileController extends Controller
             ];
             foreach ($allowed as $base) {
                 if (str_starts_with($real, rtrim($base, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR)) {
-                    return response()->file($real)->header('Access-Control-Allow-Origin', '*')
-                        ->header('Access-Control-Allow-Methods', 'GET, OPTIONS')
-                        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+                    return response()->file($real)->withHeaders([
+                        'Access-Control-Allow-Origin' => '*',
+                        'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+                        'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                    ]);
                 }
             }
         }
