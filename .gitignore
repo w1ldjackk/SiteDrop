@@ -1,0 +1,57 @@
+# ── OS / editors ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ── PHP / Laravel ────────────────────────────────────────────────────
+backend/vendor/
+backend/node_modules/
+backend/public/build/
+backend/storage/*.key
+backend/storage/logs/*.log
+backend/.env
+backend/.env.backup
+backend/.phpunit.result.cache
+backend/.phpunit.cache/
+backend/coverage/
+backend/database/*.sqlite
+backend/database/*.sqlite-journal
+backend/bootstrap/cache/*.php
+!backend/bootstrap/cache/.gitignore
+backend/public/storage
+backend/public/hot
+backend/public/assets/uploads/
+
+# ── Flutter / Dart ───────────────────────────────────────────────────
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/build/
+**/android/.gradle/
+**/android/local.properties
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/macos/Pods/
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
+**/web/.dart_tool/
+*.iml
+
+# ── Local env / secrets ──────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.keystore
+*.jks
+**/google-services.json
+**/GoogleService-Info.plist
+
+# ── Logs / temp ──────────────────────────────────────────────────────
+*.log
+/tmp/

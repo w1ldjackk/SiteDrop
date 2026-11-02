@@ -1,0 +1,29 @@
+// lib/data/models/models.dart
+// Barrel export for data models
+
+export 'address.dart';
+export 'cart_item.dart';
+export 'delivery.dart';
+export 'notification.dart';
+export 'order.dart';
+export 'payment.dart';
+export 'payment_instrument.dart';
+export 'product.dart';
+export 'review.dart';
+export 'seller_follow.dart';
+export 'seller_profile.dart';
+export 'service_area.dart';
+export 'site.dart';
+export 'site_document.dart';
+export 'site_material.dart';
+export 'site_staff.dart';
+export 'site_status_log.dart';
+export 'site_visit.dart';
+export 'tracking.dart';
+export 'trip.dart';
+export 'truck.dart';
+export 'truck_document.dart';
+export 'truck_insurance.dart';
+export 'truck_log.dart';
+export 'truck_maintenance.dart';
+export 'user.dart';

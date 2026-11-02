@@ -1,0 +1,273 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ |--------------------------------------------------------------------------
+ | SiteDrop design tokens — mirrored from sitedrop_mobile
+ | lib/app/theme/colors.dart + app_palette.dart
+ |
+ | Brand:
+ |   primary       #1A8E5A
+ |   primaryLight  #4CAF50  (dark UI)
+ |   primaryDark   #0F6B42
+ |   primarySoft   #E8F5E9
+ |   secondary     #F59E0B  (gold)
+ |   secondarySoft #FEF3C7
+ |--------------------------------------------------------------------------
+ */
+
+@theme {
+    --font-sans:
+        'Inter', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
+
+    /* Extra brand aliases (use as bg-brand-soft, text-brand-dark, etc.) */
+    --color-brand: var(--brand);
+    --color-brand-light: var(--brand-light);
+    --color-brand-dark: var(--brand-dark);
+    --color-brand-soft: var(--brand-soft);
+    --color-brand-gold: var(--brand-gold);
+    --color-brand-gold-soft: var(--brand-gold-soft);
+}
+
+/* ─── LIGHT (AppPalette.light + AppColors) ─── */
+:root {
+    --brand: #1a8e5a;
+    --brand-light: #4caf50;
+    --brand-dark: #0f6b42;
+    --brand-soft: #e8f5e9;
+    --brand-softest: #f0fff4;
+    --brand-gold: #f59e0b;
+    --brand-gold-soft: #fef3c7;
+
+    /* Surfaces — grey50 scaffold, white cards */
+    --background: #f9fafb;
+    --foreground: #111827;
+    --card: #ffffff;
+    --card-foreground: #111827;
+    --popover: #ffffff;
+    --popover-foreground: #111827;
+
+    /* Primary brand green */
+    --primary: #1a8e5a;
+    --primary-foreground: #ffffff;
+
+    /*
+     * Secondary in shadcn is used for subtle chrome (badges, soft buttons).
+     * Use soft grey like app muted surfaces so UI stays clean;
+     * gold is available as --brand-gold / chart-2 for highlights.
+     */
+    --secondary: #f3f4f6;
+    --secondary-foreground: #1f2937;
+
+    --muted: #f3f4f6;
+    --muted-foreground: #6b7280;
+
+    /* Soft green highlight (primarySurface) — selected rows, nav active */
+    --accent: #e8f5e9;
+    --accent-foreground: #0f6b42;
+
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    --border: #e5e7eb;
+    --input: #d1d5db;
+    --ring: #1a8e5a;
+
+    --success: #10b981;
+    --success-foreground: #ffffff;
+    --warning: #f59e0b;
+    --warning-foreground: #111827;
+    --info: #3b82f6;
+    --info-foreground: #ffffff;
+
+    --chart-1: #1a8e5a;
+    --chart-2: #f59e0b;
+    --chart-3: #3b82f6;
+    --chart-4: #0f6b42;
+    --chart-5: #fbbf24;
+
+    --radius: 0.75rem;
+
+    /* Sidebar — white-ish bar like mobile nav, brand selected */
+    --sidebar: #ffffff;
+    --sidebar-foreground: #111827;
+    --sidebar-primary: #1a8e5a;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #e8f5e9;
+    --sidebar-accent-foreground: #0f6b42;
+    --sidebar-border: #e5e7eb;
+    --sidebar-ring: #1a8e5a;
+}
+
+/* ─── DARK (AppPalette.dark) ─── */
+.dark {
+    --brand: #1a8e5a;
+    --brand-light: #4caf50;
+    --brand-dark: #0f6b42;
+    --brand-soft: #163526;
+    --brand-softest: #0f3d2e;
+    --brand-gold: #fbbf24;
+    --brand-gold-soft: #3d3010;
+
+    --background: #0b1220;
+    --foreground: #f3f4f6;
+    --card: #151c2c;
+    --card-foreground: #f3f4f6;
+    --popover: #151c2c;
+    --popover-foreground: #f3f4f6;
+
+    /* Brighter green on dark (primaryLight) */
+    --primary: #4caf50;
+    --primary-foreground: #062816;
+
+    --secondary: #1c2538;
+    --secondary-foreground: #e5e7eb;
+
+    --muted: #1c2538;
+    --muted-foreground: #9ca3af;
+
+    --accent: #163526;
+    --accent-foreground: #a7f3d0;
+
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    --border: #2a3448;
+    --input: #3b465c;
+    --ring: #4caf50;
+
+    --success: #10b981;
+    --success-foreground: #ffffff;
+    --warning: #fbbf24;
+    --warning-foreground: #111827;
+    --info: #3b82f6;
+    --info-foreground: #ffffff;
+
+    --chart-1: #4caf50;
+    --chart-2: #fbbf24;
+    --chart-3: #60a5fa;
+    --chart-4: #1a8e5a;
+    --chart-5: #f59e0b;
+
+    --sidebar: #151c2c;
+    --sidebar-foreground: #f3f4f6;
+    --sidebar-primary: #4caf50;
+    --sidebar-primary-foreground: #062816;
+    --sidebar-accent: #163526;
+    --sidebar-accent-foreground: #a7f3d0;
+    --sidebar-border: #2a3448;
+    --sidebar-ring: #4caf50;
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground antialiased;
+    }
+
+    a,
+    button,
+    [role='button'],
+    summary,
+    label[for],
+    select {
+        cursor: pointer;
+    }
+
+    /* Form fields match mobile input fill */
+    input:not([type='checkbox']):not([type='radio']),
+    textarea,
+    select {
+        background-color: var(--card);
+    }
+}
+
+/* Active nav — brand soft green (matches mobile navSelected treatment) */
+@layer components {
+    [data-sidebar='menu-button'][data-active='true'],
+    [data-sidebar='menu-sub-button'][data-active='true'] {
+        background-color: var(--sidebar-accent) !important;
+        color: var(--sidebar-accent-foreground) !important;
+        font-weight: 600;
+    }
+
+    [data-sidebar='menu-button'][data-active='true'] svg,
+    [data-sidebar='menu-sub-button'][data-active='true'] svg {
+        color: var(--sidebar-primary) !important;
+    }
+
+    /* Primary buttons already use bg-primary; ensure solid brand green */
+    [data-slot='button'][data-variant='default'] {
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+    }
+
+    [data-slot='button'][data-variant='default']:hover {
+        filter: brightness(0.95);
+    }
+}

@@ -1,0 +1,9 @@
+analyzer:
+  exclude:
+    - build/**
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # Prefer package imports for public API usage from apps.
+    # Inside this package, relative imports are fine.
