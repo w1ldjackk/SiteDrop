@@ -32,8 +32,8 @@ class CartNotifier extends Notifier<List<CartItemModel>> {
     // React to auth changes so the cart (and bottom-nav badge) refresh
     // promptly when a user signs in after browsing as a guest.
     ref.listen(authProvider, (prev, next) {
-      final wasAuth = prev is AsyncData && prev.value is AuthAuthenticated;
-      final isAuth = next is AsyncData && next.value is AuthAuthenticated;
+      final wasAuth = prev is AsyncData && (prev as AsyncData).value is AuthAuthenticated;
+      final isAuth = next is AsyncData && (next as AsyncData).value is AuthAuthenticated;
       if (isAuth && !wasAuth) {
         _isInitialized = false;
         ensureLoaded();
