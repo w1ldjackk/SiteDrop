@@ -437,12 +437,15 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () => _openFullscreenGallery(imageList, index),
-                    child: CachedNetworkImage(
-                      imageUrl: imageList[index],
+                    child: Image.network(
+                      imageList[index],
+                      key: ValueKey(imageList[index]),
                       fit: BoxFit.cover,
                       width: double.infinity,
-                      placeholder: (context, url) =>
-                          Container(color: context.palette.surfaceMuted),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Container(color: context.palette.surfaceMuted);
+                      },
                       errorBuilder: (context, error, stackTrace) => Container(
                         color: context.palette.surfaceMuted,
                         child: Column(
@@ -496,11 +499,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(6),
-                        child: CachedNetworkImage(
-                          imageUrl: imageList[index],
+                        child: Image.network(
+                          imageList[index],
+                          key: ValueKey(imageList[index]),
                           fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              Container(color: context.palette.divider),
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Container(color: context.palette.divider);
+                          },
                           errorBuilder: (context, error, stackTrace) => Container(
                             color: context.palette.divider,
                             child: Icon(
