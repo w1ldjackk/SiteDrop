@@ -47,11 +47,15 @@ class ProductCard extends ConsumerWidget {
                 ),
                 child: product.imageUrl.isNotEmpty
                     ? CachedNetworkImage(
+                        key: ValueKey(product.imageUrl),
                         imageUrl: product.imageUrl,
                         fit: BoxFit.cover,
                         width: double.infinity,
-                        placeholder: (context, url) =>
-                            const LoadingWidget.compact(),
+                        fadeInDuration: Duration.zero,
+                        placeholderFadeInDuration: Duration.zero,
+                        placeholder: (context, url) => Container(
+                          color: p.surfaceMuted,
+                        ),
                         errorWidget: (context, url, error) => Container(
                           color: p.surfaceMuted,
                           child: Icon(

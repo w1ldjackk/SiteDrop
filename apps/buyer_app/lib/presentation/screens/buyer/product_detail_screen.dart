@@ -395,7 +395,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             fit: BoxFit.cover,
             width: double.infinity,
             placeholder: (context, url) =>
-                const Center(child: LoadingWidget.compact()),
+                Container(color: context.palette.surfaceMuted),
             errorWidget: (context, url, error) => Container(
               color: context.palette.surfaceMuted,
               child: Column(
@@ -441,7 +441,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                       fit: BoxFit.cover,
                       width: double.infinity,
                       placeholder: (context, url) =>
-                          const Center(child: LoadingWidget.compact()),
+                          Container(color: context.palette.surfaceMuted),
                       errorWidget: (context, url, error) => Container(
                         color: context.palette.surfaceMuted,
                         child: Column(
@@ -1464,7 +1464,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     ref.watch(authProvider);
 
     return reviewsAsync.when(
-      loading: () => const Center(child: LoadingWidget.compact()),
+      loading: () => Container(color: context.palette.surfaceMuted),
       error: (error, _) => Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -2758,7 +2758,7 @@ class _FullscreenGalleryState extends State<_FullscreenGallery> {
                 imageUrl: widget.images[i],
                 fit: BoxFit.contain,
                 placeholder: (context, url) =>
-                    const Center(child: LoadingWidget.compact()),
+                    Container(color: context.palette.surfaceMuted),
                 errorWidget: (context, url, error) => const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
