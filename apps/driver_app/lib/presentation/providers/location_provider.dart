@@ -1,9 +1,9 @@
 // lib/presentation/providers/location_provider.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:sitedrop_core/data/services/location_service.dart';
+import 'package:sitedrop_core/maps/app_map_point.dart';
 import 'service_providers.dart';
 
 export 'service_providers.dart' show locationServiceProvider;
@@ -18,10 +18,10 @@ final currentPositionProvider =
   }
 });
 
-/// Current position as LatLng for map widgets.
-final currentLatLngProvider = FutureProvider.autoDispose<LatLng?>((ref) async {
+/// Current position as AppMapPoint for map widgets.
+final currentLatLngProvider = FutureProvider.autoDispose<AppMapPoint?>((ref) async {
   try {
-    return await ref.watch(locationServiceProvider).getCurrentLatLng();
+    return await ref.watch(locationServiceProvider).getCurrentMapPoint();
   } catch (_) {
     return null;
   }

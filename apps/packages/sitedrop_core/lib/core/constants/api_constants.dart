@@ -208,7 +208,7 @@ class ApiConstants {
 
   static String deliveryDecline(String id) => '/deliveries/$id/decline';
 
-  // Bolt-style dispatch (broadcast offers, first-accept wins).
+  // SiteDrop-style dispatch (broadcast offers, first-accept wins).
   static const String deliveryOffers = '/deliveries/offers';
   static const String deliveryPresence = '/deliveries/presence';
 

@@ -383,7 +383,7 @@ Route::prefix('v1')->group(function () {
             // User routes
             Route::get('/', 'index');
             Route::get('/statistics', 'statistics');
-            // Bolt-style offers BEFORE /{id} (order matters).
+            // SiteDrop-style offers BEFORE /{id} (order matters).
             Route::get('/offers', 'offers');
             Route::post('/offers/{offer}/accept', 'acceptOffer');
             Route::post('/offers/{offer}/decline', 'declineOffer');

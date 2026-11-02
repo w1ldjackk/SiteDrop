@@ -17,7 +17,7 @@ import '../../../providers/service_providers.dart';
 import '../../../widgets/common/app_back_button.dart';
 // OSM default (free, no API key):
 import '../../../widgets/maps/app_osm_map.dart';
-import '../../../widgets/maps/uber_map_picker.dart';
+import '../../../widgets/maps/sitedrop_map_picker.dart';
 // LEGACY (Google backup — commented out for now):
 // import '../../../widgets/maps/app_google_map.dart';
 // import '../../../widgets/maps/app_map.dart';
@@ -198,7 +198,7 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
     }
   }
 
-  /// Bolt-style full-screen picker: same center-pin UX, taller map,
+  /// SiteDrop-style full-screen picker: same center-pin UX, taller map,
   /// Confirm button writes the pin back to the form.
   Future<void> _openFullscreenPicker() async {
     final loc = ref.read(locationServiceProvider);
@@ -229,7 +229,7 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              UberMapPicker(
+              SiteDropMapPicker(
                 initialPoint: _mapCenter,
                 controller: pickerController,
                 locationService: loc,
@@ -495,7 +495,7 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
         ),
         const SizedBox(height: 4),
         Text(
-          'Drag the map under the pin, tap, or search — like Uber/Bolt. Coordinates are saved for delivery.',
+          'Drag the map under the pin, tap, or search — like SiteDrop/SiteDrop. Coordinates are saved for delivery.',
           style: TextStyle(fontSize: 12, color: p.textMuted),
         ),
         const SizedBox(height: 10),
@@ -508,9 +508,9 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
             ),
           ),
           clipBehavior: Clip.antiAlias,
-          // Uber/Bolt-style picker (OSM, free, no key): center pin, search,
+          // SiteDrop/SiteDrop-style picker (OSM, free, no key): center pin, search,
           // GPS + zoom controls, bottom address card.
-          child: UberMapPicker(
+          child: SiteDropMapPicker(
             initialPoint: _mapCenter,
             controller: _mapController ??= AppMapController(),
             locationService: locationService,

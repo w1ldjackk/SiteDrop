@@ -1,5 +1,5 @@
 // lib/data/services/delivery_service.dart
-// Buyer + driver delivery client: Bolt-style offers (first-accept wins),
+// Buyer + driver delivery client: SiteDrop-style offers (first-accept wins),
 // status progression, GPS pings, driver presence.
 
 import '../../core/constants/api_constants.dart';

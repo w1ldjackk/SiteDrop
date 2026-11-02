@@ -243,7 +243,7 @@ class CheckoutService
                     ]
                 );
 
-                // Create delivery row now (pending) so Bolt-style dispatch
+                // Create delivery row now (pending) so SiteDrop-style dispatch
                 // can fire the moment the seller marks the order ready.
                 // Never breaks checkout — delivery creation is best-effort.
                 try {

@@ -329,7 +329,7 @@ class OrderController extends Controller
             userId: $user->id,
         );
 
-        // Bolt-style auto-dispatch: seller marked ready → broadcast trip
+        // SiteDrop-style auto-dispatch: seller marked ready → broadcast trip
         // requests to available drivers (first-accept wins). Best-effort:
         // never breaks the status update itself.
         // Order confirmed → push to ONLINE drivers only (model hook also
@@ -604,7 +604,7 @@ class OrderController extends Controller
             'status' => \App\Models\Review::STATUS_PUBLISHED,
         ]);
 
-        // Bolt-style trip rating → stored on the delivery for the driver.
+        // SiteDrop-style trip rating → stored on the delivery for the driver.
         $driverRating = isset($data['driver_rating']) ? (int) $data['driver_rating'] : null;
         if ($driverRating && $order->delivery) {
             $order->delivery->update([

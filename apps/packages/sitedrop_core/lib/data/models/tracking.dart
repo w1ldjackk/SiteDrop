@@ -174,7 +174,7 @@ class TrackingDelivery {
   }
 }
 
-/// One Bolt-style trip request (`GET /deliveries/offers` item).
+/// One SiteDrop-style trip request (`GET /deliveries/offers` item).
 /// First-accept wins — the offer can expire or be taken meanwhile.
 class DeliveryOfferModel {
   final String id;

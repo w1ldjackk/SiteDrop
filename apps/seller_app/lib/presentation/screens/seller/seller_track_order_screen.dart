@@ -25,7 +25,7 @@ import '../../widgets/maps/app_map.dart';
 import '../../providers/order_provider.dart';
 import '../../providers/service_providers.dart';
 
-/// Canonical journey steps (Bolt-style). Pending sits before step 0.
+/// Canonical journey steps (SiteDrop-style). Pending sits before step 0.
 const _trackerSteps = [
   'Confirmed',
   'Preparing',
@@ -52,7 +52,7 @@ class _SellerTrackOrderScreenState extends ConsumerState<SellerTrackOrderScreen>
   bool? _pollActive;
   DateTime _lastUpdated = DateTime.now();
 
-  // Smooth driver glide (Bolt-style): interpolate the marker between
+  // Smooth driver glide (SiteDrop-style): interpolate the marker between
   // server fixes instead of jumping on every poll.
   AppMapPoint? _shownDriver;
   AppMapPoint? _glideFrom;

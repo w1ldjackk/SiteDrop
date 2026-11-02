@@ -610,7 +610,7 @@ class LocationService {
   }
 
   /// Free OSM place autocomplete for search bars (no API key).
-  /// Ghana-biased first, then global fallback — Bolt/Uber-style UX.
+  /// Ghana-biased first, then global fallback — SiteDrop/SiteDrop-style UX.
   Future<List<PlaceSuggestion>> searchPlaces(
     String query, {
     int limit = 5,
@@ -685,13 +685,13 @@ class RouteStep {
   }
 }
 
-/// Free-text place result (Nominatim) for Uber/Bolt-style search bars.
+/// Free-text place result (Nominatim) for SiteDrop/SiteDrop-style search bars.
 class PlaceSuggestion {  final String displayName;
   final AppMapPoint point;
 
   const PlaceSuggestion({required this.displayName, required this.point});
 
-  /// Short title (first segment) + remainder as subtitle — Bolt style.
+  /// Short title (first segment) + remainder as subtitle — SiteDrop style.
   String get title {
     final parts = displayName.split(',');
     return parts.first.trim();

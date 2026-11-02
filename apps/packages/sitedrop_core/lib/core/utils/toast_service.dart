@@ -4,7 +4,7 @@ import 'package:toastification/toastification.dart';
 import '../../app/theme/colors.dart';
 import 'app_logger.dart';
 
-/// Centralized toast service — modern compact style (Bolt/Uber-like).
+/// Centralized toast service — modern compact style (SiteDrop/SiteDrop-like).
 ///
 /// One shared renderer for every toast: small top-floating card, tinted
 /// icon dot, message-first (redundant "Success"/"Error" titles are hidden

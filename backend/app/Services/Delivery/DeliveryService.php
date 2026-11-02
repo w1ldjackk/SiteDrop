@@ -54,7 +54,7 @@ class DeliveryService
     }
 
     /**
-     * Bolt-style broadcast dispatch: offer the delivery to available
+     * SiteDrop-style broadcast dispatch: offer the delivery to available
      * drivers (online first), first-accept wins. Safe to retry — never
      * duplicates live offers, never touches an already-accepted delivery.
      *
@@ -234,7 +234,7 @@ class DeliveryService
                 $delivery->order->update(['status' => Order::STATUS_DISPATCHED]);
             }
 
-            // Everyone else loses (Bolt-style).
+            // Everyone else loses (SiteDrop-style).
             $this->expireOtherOffers($delivery->id, $offer->id);
 
             // Fleet history: open the trip log (best-effort, outside lock).
@@ -287,7 +287,7 @@ class DeliveryService
                 return ['declined' => false, 'message' => 'Offer already answered'];
             }
 
-            // Cascade: keep the broadcast topped up (Bolt-style re-offer).
+            // Cascade: keep the broadcast topped up (SiteDrop-style re-offer).
             $delivery = Delivery::find($offer->delivery_id);
             $toppedUp = 0;
             if ($delivery && !$delivery->driver_id) {

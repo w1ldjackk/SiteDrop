@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Bolt-style dispatch: fix deliveries status enum (pending/accepted were
+ * SiteDrop-style dispatch: fix deliveries status enum (pending/accepted were
  * missing at DB level), add delivery_offers for broadcast first-accept-wins,
  * and driver presence (is_online + last_location) for offer targeting.
  */

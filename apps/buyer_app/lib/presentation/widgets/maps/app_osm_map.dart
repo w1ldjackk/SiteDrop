@@ -11,68 +11,95 @@
 // Tiles: https://tile.openstreetmap.org (see [OsmTiles] in sitedrop_core).
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as fm;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sitedrop_core/sitedrop_core.dart';
 
 /// Programmatic controller — mirrors the subset of GoogleMapController used
 /// by address forms (`moveCamera` / `animateCamera` → [moveTo]).
+/// Works with both OSM (flutter_map) and Google (google_maps_flutter) backends.
 class AppMapController {
   fm.MapController? _inner;
+  GoogleMapController? _google;
 
-  void _attach(fm.MapController c) => _inner = c;
+  // Last known camera (tracked manually since GoogleMapController has no
+  // synchronous cameraPosition getter — only async getCameraPosition()).
+  AppMapPoint? _lastCenter;
+  double? _lastZoom;
 
-  void _detach() {
-    if (_inner != null) {
-      try {
-        _inner!.dispose();
-      } catch (_) {}
-      _inner = null;
-    }
+  void attach(fm.MapController c) => _inner = c;
+
+  /// Attach a Google Maps controller (used by [AppGoogleMap]).
+  void attachGoogle(GoogleMapController c) => _google = c;
+
+  void detach() {
+    _inner = null;
+    _google = null;
   }
 
-  /// Move camera to [point] at [zoom] (OSM `MapController.move`).
-  /// Mirrors Google's `animateCamera(CameraUpdate.newLatLngZoom(...))`.
+  /// Move camera to [point] at [zoom].
+  /// OSM: `MapController.move`. Google: `animateCamera(CameraUpdate.newLatLngZoom)`.
   void moveTo(AppMapPoint point, [double zoom = 16]) {
+    _lastCenter = point;
+    _lastZoom = zoom;
+    if (_google != null) {
+      _google!.animateCamera(
+        CameraUpdate.newLatLngZoom(point.toGoogle(), zoom),
+      );
+      return;
+    }
     _inner?.move(point.toOsm(), zoom);
   }
 
-  /// Current camera (for Uber-style +/- controls). Null before map ready.
-  double? get currentZoom {
-    try {
-      return _inner?.camera.zoom;
-    } catch (_) {
-      return null;
-    }
-  }
+  /// Current camera (for SiteDrop-style +/- controls). Null before map ready.
+  double? get currentZoom => _lastZoom;
 
-  AppMapPoint? get currentCenter {
-    try {
-      final c = _inner?.camera.center;
-      if (c == null) return null;
-      return AppMapPoint.fromOsm(c);
-    } catch (_) {
-      return null;
-    }
-  }
+  AppMapPoint? get currentCenter => _lastCenter;
 
   void zoomIn() {
-    final c = _inner;
-    if (c == null) return;
+    final c = _google;
+    if (c != null) {
+      final z = (_lastZoom ?? 16) + 1;
+      try {
+        c.animateCamera(
+          CameraUpdate.newLatLngZoom(
+            _lastCenter?.toGoogle() ?? const LatLng(5.6037, -0.1870),
+            z.clamp(3.0, 19.0),
+          ),
+        );
+      } catch (_) {}
+      return;
+    }
+    final inner = _inner;
+    if (inner == null) return;
     try {
-      final cam = c.camera;
-      c.move(cam.center, (cam.zoom + 1).clamp(3.0, 19.0));
+      final cam = inner.camera;
+      inner.move(cam.center, (cam.zoom + 1).clamp(3.0, 19.0));
     } catch (_) {}
   }
 
   void zoomOut() {
-    final c = _inner;
-    if (c == null) return;
+    final c = _google;
+    if (c != null) {
+      final z = (_lastZoom ?? 16) - 1;
+      try {
+        c.animateCamera(
+          CameraUpdate.newLatLngZoom(
+            _lastCenter?.toGoogle() ?? const LatLng(5.6037, -0.1870),
+            z.clamp(3.0, 19.0),
+          ),
+        );
+      } catch (_) {}
+      return;
+    }
+    final inner = _inner;
+    if (inner == null) return;
     try {
-      final cam = c.camera;
-      c.move(cam.center, (cam.zoom - 1).clamp(3.0, 19.0));
+      final cam = inner.camera;
+      inner.move(cam.center, (cam.zoom - 1).clamp(3.0, 19.0));
     } catch (_) {}
   }
 
-  void dispose() => _detach();
+  void dispose() => detach();
 }
 
 /// Drop-in OSM replacement for [AppGoogleMap]. No API key required.
@@ -105,7 +132,7 @@ class AppOsmMap extends StatefulWidget {
   /// Mirrors passing `onTap: null` to GoogleMap.
   final bool interactive;
 
-  /// Uber/Bolt center-pin mode: fires on every camera move (pan/zoom).
+  /// SiteDrop/SiteDrop center-pin mode: fires on every camera move (pan/zoom).
   /// Use for "map moves under fixed pin → reverse geocode on idle".
   final void Function(AppMapPoint center, double zoom, bool hasGesture)?
       onCameraChanged;
@@ -132,28 +159,28 @@ class _AppOsmMapState extends State<AppOsmMap> {
     _mapController = fm.MapController();
     _effectiveController = widget.controller ?? AppMapController();
     if (widget.controller == null) _ownsController = true;
-    _effectiveController._attach(_mapController);
+    _effectiveController.attach(_mapController);
   }
 
   @override
   void didUpdateWidget(AppOsmMap oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != widget.controller) {
-      oldWidget.controller?._detach();
+      oldWidget.controller?.detach();
       final next = widget.controller ?? AppMapController();
-      next._attach(_mapController);
+      next.attach(_mapController);
     }
   }
 
   @override
   void dispose() {
-    widget.controller?._detach();
-    if (_ownsController) _effectiveController._detach();
+    widget.controller?.detach();
+    if (_ownsController) _effectiveController.detach();
     _mapController.dispose();
     super.dispose();
   }
 
-  /// Tracker looks: destination = red pin, driver = Bolt vehicle badge.
+  /// Tracker looks: destination = red pin, driver = SiteDrop vehicle badge.
   fm.Marker _marker(AppMapMarker m) {
     if (m.kind == AppMarkerKind.driver) {
       return fm.Marker(

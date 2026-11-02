@@ -1,14 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sitedrop_core/sitedrop_core.dart';
 
 import 'app/app.dart';
-// LEGACY (Google Maps backup — commented out for now).
-// OSM (flutter_map) needs no JS bootstrap / API key, so this stays disabled.
-// To re-enable Google, uncomment the import + block below and set
-// GOOGLE_MAPS_API_KEY (dart-define) or Laravel public config.
-// import 'core/maps/google_maps_js_loader.dart';
+import 'core/maps/google_maps_js_loader.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,10 +21,10 @@ Future<void> main() async {
   await PublicConfigService.fetchAndApply();
 
   // OSM default: no Maps JS / API key needed (flutter_map + tile.openstreetmap.org).
-  // LEGACY (Google backup — commented out for now):
-  // if (kIsWeb && AppConfig.hasGoogleMapsApiKey) {
-  //   await ensureGoogleMapsJsLoaded(AppConfig.googleMapsApiKey);
-  // }
+  // Google legacy: bootstrap Maps JS on web when API key is present.
+  if (kIsWeb && AppConfig.hasGoogleMapsApiKey) {
+    await ensureGoogleMapsJsLoaded(AppConfig.googleMapsApiKey);
+  }
 
   if (AppConfig.enableFirebase) {
     final app = await FirebaseEnv.ensureInitialized();

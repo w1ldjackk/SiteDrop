@@ -71,7 +71,7 @@ class AppMapMarker {
   final String id;
   final AppMapPoint point;
 
-  /// Tracker look: destination = red pin, driver = Bolt-style vehicle badge.
+  /// Tracker look: destination = red pin, driver = SiteDrop-style vehicle badge.
   final AppMarkerKind kind;
 
   const AppMapMarker({

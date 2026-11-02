@@ -50,7 +50,7 @@ class User extends Authenticatable
         'preferences',
         'fcm_token',
         'device_type', // ios, android, web
-        'is_online', // driver presence for Bolt-style dispatch
+        'is_online', // driver presence for SiteDrop-style dispatch
         'last_location', // {lat, lng, timestamp}
     ];
 

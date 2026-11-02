@@ -1,5 +1,5 @@
 // lib/presentation/providers/delivery_provider.dart
-// Bolt-style driver loop: live offers inbox + my active deliveries + presence.
+// SiteDrop-style driver loop: live offers inbox + my active deliveries + presence.
 
 import 'dart:async';
 
@@ -80,7 +80,7 @@ final deliveryStatsProvider =
   return DeliveryService.fetchStatistics();
 });
 
-/// Online toggle (Bolt "Go online"). Synced to server presence on change.
+/// Online toggle (SiteDrop "Go online"). Synced to server presence on change.
 final driverOnlineProvider =
     NotifierProvider<DriverOnlineNotifier, bool>(
         DriverOnlineNotifier.new);

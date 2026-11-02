@@ -2,7 +2,7 @@
 // Active deliveries hub — DIFFERENT from Order History.
 //
 // Order History (`order_history_screen`) = full list of past orders & receipts.
-// This screen = only live/trackable orders (Bolt-style "My trips"): each card
+// This screen = only live/trackable orders (SiteDrop-style "My trips"): each card
 // shows live progress + ETA and opens the live tracker (`order_tracking`).
 import 'dart:async';
 

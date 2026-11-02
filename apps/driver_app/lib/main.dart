@@ -19,6 +19,8 @@ Future<void> main() async {
   ApiService.ensureInitialized();
   await PublicConfigService.fetchAndApply();
 
+  // OSM default: no Maps JS / API key needed (flutter_map + tile.openstreetmap.org).
+  // Google legacy: bootstrap Maps JS on web when API key is present.
   if (kIsWeb && AppConfig.hasGoogleMapsApiKey) {
     await ensureGoogleMapsJsLoaded(AppConfig.googleMapsApiKey);
   }

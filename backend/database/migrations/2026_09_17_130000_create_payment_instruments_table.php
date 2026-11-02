@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Saved payment instruments (Bolt-style wallet): MoMo accounts, cards,
+ * Saved payment instruments (SiteDrop-style wallet): MoMo accounts, cards,
  * bank accounts. Sensitive details live in the encrypted `details` JSON —
  * only last4/brand stay readable for display.
  */

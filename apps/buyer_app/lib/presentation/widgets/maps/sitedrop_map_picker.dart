@@ -1,7 +1,7 @@
-// lib/presentation/widgets/maps/uber_map_picker.dart
-// Uber/Bolt-style location picker on free OpenStreetMap (no API key).
+// lib/presentation/widgets/maps/sitedrop_map_picker.dart
+// SiteDrop/SiteDrop-style location picker on free OpenStreetMap (no API key).
 //
-// UX (matches Bolt/Uber):
+// UX (matches SiteDrop/SiteDrop):
 //   - Map moves UNDER a fixed center pin (pan/zoom to position)
 //   - Tap also places the pin (jumps camera there)
 //   - Floating search bar with Nominatim autocomplete
@@ -16,9 +16,9 @@ import 'package:sitedrop_core/sitedrop_core.dart';
 import 'app_map.dart';
 import 'app_osm_map.dart';
 
-/// Uber/Bolt-style picker. Parent owns the picked point + GPS flow.
-class UberMapPicker extends StatefulWidget {
-  const UberMapPicker({
+/// SiteDrop/SiteDrop-style picker. Parent owns the picked point + GPS flow.
+class SiteDropMapPicker extends StatefulWidget {
+  const SiteDropMapPicker({
     super.key,
     required this.initialPoint,
     required this.controller,
@@ -56,9 +56,9 @@ class UberMapPicker extends StatefulWidget {
   final VoidCallback? onExpand;
 
   @override
-  State<UberMapPicker> createState() => _UberMapPickerState();
+  State<SiteDropMapPicker> createState() => _SiteDropMapPickerState();
 }
-class _UberMapPickerState extends State<UberMapPicker> {
+class _SiteDropMapPickerState extends State<SiteDropMapPicker> {
   final _searchCtrl = TextEditingController();
   final _searchFocus = FocusNode();
   List<PlaceSuggestion> _suggestions = [];
@@ -179,7 +179,7 @@ class _UberMapPickerState extends State<UberMapPicker> {
               markers: const {},
             ),
 
-            // ---- Fixed center pin (Bolt style) ----
+            // ---- Fixed center pin (SiteDrop style) ----
             IgnorePointer(
               child: Center(
                 child: Column(
@@ -359,7 +359,7 @@ class _UberMapPickerState extends State<UberMapPicker> {
               ),
             ),
 
-            // ---- Right controls: GPS + zoom (Bolt style) ----
+            // ---- Right controls: GPS + zoom (SiteDrop style) ----
             Positioned(
               right: 12,
               bottom: 108,

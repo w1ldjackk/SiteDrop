@@ -16,11 +16,11 @@
 import 'package:flutter/material.dart';
 import 'package:sitedrop_core/sitedrop_core.dart';
 
+import 'app_google_map.dart';
 import 'app_osm_map.dart';
-// LEGACY (Google backup — commented out for now, keep as fallback):
-// import 'app_google_map.dart';
 
 /// Default map for buyer_app. OSM-first; Google kept as legacy backup.
+/// Set [provider] to MapProvider.googleLegacy to use Google Maps.
 class AppMap extends StatelessWidget {
   const AppMap({
     super.key,
@@ -64,22 +64,8 @@ class AppMap extends StatelessWidget {
       );
     }
 
-    // ---- LEGACY: Google Maps backup (commented out for now) ----
-    // Requires GOOGLE_MAPS_API_KEY + web Maps JS bootstrap in main.dart.
-    // To re-enable, uncomment the import above and this block:
-    //
-    // return AppGoogleMap(
-    //   initialCameraPosition: initialCameraPosition.toGoogle(),
-    //   onMapCreated: (c) { /* bridge to AppMapController if needed */ },
-    //   onTap: onTap == null ? null : (p) => onTap!(AppMapPoint.fromGoogle(p)),
-    //   markers: markers.map((m) => Marker(
-    //     markerId: MarkerId(m.id),
-    //     position: m.point.toGoogle(),
-    //   )).toSet(),
-    // );
-    //
-    // Fallback while Google stays disabled: render OSM.
-    return AppOsmMap(
+    // Google Maps legacy — requires GOOGLE_MAPS_API_KEY + web JS bootstrap.
+    return AppGoogleMap(
       initialCameraPosition: initialCameraPosition,
       controller: controller,
       onTap: interactive ? onTap : null,

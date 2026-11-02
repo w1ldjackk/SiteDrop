@@ -14,7 +14,7 @@ class DeliveryOffer extends Model
     public const STATUS_DECLINED = 'declined';
     public const STATUS_EXPIRED = 'expired';
 
-    /** Bolt-style offer window (seconds) before lazy expiry + re-offer. */
+    /** SiteDrop-style offer window (seconds) before lazy expiry + re-offer. */
     public const OFFER_TTL_SECONDS = 90;
 
     protected $fillable = [

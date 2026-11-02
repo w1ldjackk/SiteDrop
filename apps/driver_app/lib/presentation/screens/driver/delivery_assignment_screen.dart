@@ -1,5 +1,5 @@
 // lib/presentation/screens/driver/delivery_assignment_screen.dart
-// Bolt-style driver loop: online toggle, live trip requests (accept/decline),
+// SiteDrop-style driver loop: online toggle, live trip requests (accept/decline),
 // my active trips with status progression + GPS pinging (feeds buyer map).
 import 'dart:async';
 
@@ -23,7 +23,7 @@ import '../../widgets/common/loading_widget.dart';
 import '../../widgets/common/notification_bell_button.dart';
 import '../../widgets/maps/trip_route_map.dart';
 
-/// Next driver action per delivery status (Bolt trip flow).
+/// Next driver action per delivery status (SiteDrop trip flow).
 const _nextStep = {
   'accepted': ('picked_up', 'Picked up — start trip'),
   'picked_up': ('in_transit', 'Start trip'),
@@ -70,7 +70,7 @@ class _DeliveryAssignmentScreenState
       myDeliveriesProvider,
       (previous, next) => next.whenData(_syncGpsTracking),
     );
-    // Bolt-style pop-up the moment a NEW request lands.
+    // SiteDrop-style pop-up the moment a NEW request lands.
     ref.listenManual(
       deliveryOffersProvider,
       (previous, next) => next.whenData(_alertNewOffers),
@@ -137,7 +137,7 @@ class _DeliveryAssignmentScreenState
     });
   }
 
-  /// Start/stop motion tracking to match the active trip (Bolt-style:
+  /// Start/stop motion tracking to match the active trip (SiteDrop-style:
   /// ping on movement, not wall-clock, throttled to ≥12s).
   void _syncGpsTracking(List<DeliveryModel> deliveries) {
     if (!mounted) return;
@@ -587,7 +587,7 @@ class _DeliveryAssignmentScreenState
   }
 
   // ============================================================
-  // OFFER CARD (Bolt-style trip request)
+  // OFFER CARD (SiteDrop-style trip request)
   // ============================================================
   Widget _buildOfferCard(BuildContext context, DeliveryOfferModel o) {
     final busy = _busy.contains(o.id);
@@ -1228,7 +1228,7 @@ class _DeliveryAssignmentScreenState
   }
 }
 
-/// Bolt-style incoming request pop-up: countdown ring, payout, one-tap
+/// SiteDrop-style incoming request pop-up: countdown ring, payout, one-tap
 /// accept/decline. Auto-closes when the offer expires or is taken.
 class _OfferAlertSheet extends ConsumerStatefulWidget {
   final DeliveryOfferModel offer;

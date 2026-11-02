@@ -1,5 +1,5 @@
 // lib/presentation/widgets/reviews/order_review_sheet.dart
-// Bolt-style trip rating: seller stars + optional driver stars in one sheet.
+// SiteDrop-style trip rating: seller stars + optional driver stars in one sheet.
 // Used by My Reviews, order tracking, and order history detail entry points.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

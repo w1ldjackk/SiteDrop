@@ -1,5 +1,5 @@
 // lib/presentation/screens/buyer/order_tracking_screen.dart
-// Live order tracker (Bolt/Uber style) — NOT a second order history.
+// Live order tracker (SiteDrop/SiteDrop style) — NOT a second order history.
 //
 // History (`order_history_screen`) = the list of past orders.
 // This screen = one order's live journey: hero progress, OSM live map
@@ -32,7 +32,7 @@ import '../../widgets/common/loading_widget.dart';
 import '../../widgets/maps/app_map.dart';
 import '../../widgets/reviews/order_review_sheet.dart';
 
-/// Canonical journey steps (Bolt-style). Pending sits before step 0.
+/// Canonical journey steps (SiteDrop-style). Pending sits before step 0.
 const _trackerSteps = [
   'Confirmed',
   'Preparing',
@@ -60,7 +60,7 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen>
   DateTime _lastUpdated = DateTime.now();
   bool _cancelling = false;
 
-  // Smooth driver glide (Bolt-style): interpolate the marker between
+  // Smooth driver glide (SiteDrop-style): interpolate the marker between
   // server fixes instead of jumping on every poll.
   AppMapPoint? _shownDriver;
   AppMapPoint? _glideFrom;
@@ -2038,7 +2038,7 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen>
   }
 }
 
-/// Pulsing live dot (Bolt-style) for the tracker hero.
+/// Pulsing live dot (SiteDrop-style) for the tracker hero.
 class _LiveDot extends StatefulWidget {
   @override
   State<_LiveDot> createState() => _LiveDotState();

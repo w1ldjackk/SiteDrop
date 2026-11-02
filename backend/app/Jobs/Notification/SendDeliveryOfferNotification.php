@@ -13,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Bolt-style trip request: notify ONE offered driver (in-app + push).
+ * SiteDrop-style trip request: notify ONE offered driver (in-app + push).
  * Unlike SendDriverAssignmentNotification (manual single assignment),
  * many drivers can hold live offers — first-accept wins.
  */
