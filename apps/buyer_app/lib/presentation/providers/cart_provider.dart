@@ -29,6 +29,19 @@ class CartNotifier extends Notifier<List<CartItemModel>> {
     // Do not auto-fetch here — SessionBootstrap / ensureLoaded own init.
     // Avoids racing auth restore + home + listener + cart_screen.
     _isInitialized = false;
+    // React to auth changes so the cart (and bottom-nav badge) refresh
+    // promptly when a user signs in after browsing as a guest.
+    ref.listen(authProvider, (prev, next) {
+      final wasAuth = prev is AsyncData && prev.value is AuthAuthenticated;
+      final isAuth = next is AsyncData && next.value is AuthAuthenticated;
+      if (isAuth && !wasAuth) {
+        _isInitialized = false;
+        ensureLoaded();
+      } else if (!isAuth && wasAuth) {
+        state = const [];
+        _isInitialized = false;
+      }
+    });
     return const [];
   }
 
