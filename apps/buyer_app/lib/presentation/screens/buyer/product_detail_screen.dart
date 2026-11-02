@@ -390,13 +390,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           height: double.infinity,
           width: double.infinity,
           color: context.palette.surfaceMuted,
-          child: CachedNetworkImage(
-            imageUrl: imageList.first,
+          child: Image.network(
+            imageList.first,
+            key: ValueKey(imageList.first),
             fit: BoxFit.cover,
             width: double.infinity,
             placeholder: (context, url) =>
                 Container(color: context.palette.surfaceMuted),
-            errorWidget: (context, url, error) => Container(
+            errorBuilder: (context, error, stackTrace) => Container(
               color: context.palette.surfaceMuted,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -442,7 +443,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                       width: double.infinity,
                       placeholder: (context, url) =>
                           Container(color: context.palette.surfaceMuted),
-                      errorWidget: (context, url, error) => Container(
+                      errorBuilder: (context, error, stackTrace) => Container(
                         color: context.palette.surfaceMuted,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -500,7 +501,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                           fit: BoxFit.cover,
                           placeholder: (context, url) =>
                               Container(color: context.palette.divider),
-                          errorWidget: (context, url, error) => Container(
+                          errorBuilder: (context, error, stackTrace) => Container(
                             color: context.palette.divider,
                             child: Icon(
                               Icons.error,

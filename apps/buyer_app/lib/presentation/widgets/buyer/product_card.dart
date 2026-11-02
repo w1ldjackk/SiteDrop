@@ -46,17 +46,17 @@ class ProductCard extends ConsumerWidget {
                   top: Radius.circular(16),
                 ),
                 child: product.imageUrl.isNotEmpty
-                    ? CachedNetworkImage(
+                    ? Image.network(
+                        product.imageUrl,
                         key: ValueKey(product.imageUrl),
-                        imageUrl: product.imageUrl,
                         fit: BoxFit.cover,
                         width: double.infinity,
-                        fadeInDuration: Duration.zero,
-                        placeholderFadeInDuration: Duration.zero,
-                        placeholder: (context, url) => Container(
-                          color: p.surfaceMuted,
-                        ),
-                        errorWidget: (context, url, error) => Container(
+                        gaplessPlayback: true,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(color: p.surfaceMuted);
+                        },
+                        errorBuilder: (context, error, stackTrace) => Container(
                           color: p.surfaceMuted,
                           child: Icon(
                             Icons.image_not_supported,
