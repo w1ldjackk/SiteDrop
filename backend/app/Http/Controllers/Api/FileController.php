@@ -45,7 +45,7 @@ class FileController extends Controller
             ];
             foreach ($allowed as $base) {
                 if (str_starts_with($real, rtrim($base, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR)) {
-                    return response()->file($real, null, [
+                    return response()->file($real, [
                         'Access-Control-Allow-Origin' => '*',
                         'Access-Control-Allow-Methods' => 'GET, OPTIONS',
                         'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
