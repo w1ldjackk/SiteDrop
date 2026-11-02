@@ -2403,23 +2403,59 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
           _followButton(product, compact: true),
-          IconButton(
-            onPressed: () async {
-              final ok = await AuthGate.require(
-                context,
-                ref,
-                action: 'view your cart',
+          Builder(
+            builder: (context) {
+              final cartItems = ref.watch(cartProvider);
+              final cartCount = cartItems.fold<int>(0, (sum, item) => sum + item.quantity);
+              return Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  IconButton(
+                    onPressed: () async {
+                      final ok = await AuthGate.require(
+                        context,
+                        ref,
+                        action: 'view your cart',
+                      );
+                      if (!ok || !mounted) return;
+                      context.go(RouteNames.cart);
+                    },
+                    icon: Icon(
+                      Icons.shopping_cart_outlined,
+                      color: context.palette.icon,
+                      size: 26,
+                    ),
+                    padding: const EdgeInsets.all(4),
+                    constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+                  ),
+                  if (cartCount > 0)
+                    Positioned(
+                      right: 2,
+                      top: 2,
+                      child: Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: Text(
+                          cartCount > 9 ? '9+' : '$cartCount',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
               );
-              if (!ok || !mounted) return;
-              context.go(RouteNames.cart);
             },
-            icon: Icon(
-              Icons.shopping_cart_outlined,
-              color: context.palette.icon,
-              size: 26,
-            ),
-            padding: const EdgeInsets.all(4),
-            constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
           const SizedBox(width: 4),
           Expanded(

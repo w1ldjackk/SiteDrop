@@ -9,6 +9,7 @@ import 'package:sitedrop_core/app/theme/colors.dart';
 import 'package:sitedrop_core/core/constants/app_constants.dart';
 import '../../providers/product_provider.dart';
 import '../../providers/main_tab_provider.dart';
+import '../../providers/cart_provider.dart';
 import '../../widgets/buyer/product_card.dart';
 import '../../widgets/buyer/product_search_bar.dart';
 import '../../widgets/common/buyer_bottom_nav.dart';
@@ -51,6 +52,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final p = context.palette;
     final selectedIndex = ref.watch(mainTabIndexProvider).clamp(0, 4);
+    // Watch cart so the bottom nav badge rebuilds when items are added/removed.
+    ref.watch(cartProvider);
 
     return Scaffold(
       backgroundColor: p.background,
@@ -58,7 +61,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         index: selectedIndex,
         children: _pages,
       ),
-      bottomNavigationBar: const BuyerBottomNav(embeddedInShell: true),
+      bottomNavigationBar: BuyerBottomNav(embeddedInShell: true),
     );
   }
 }

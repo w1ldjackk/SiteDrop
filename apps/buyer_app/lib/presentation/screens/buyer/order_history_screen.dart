@@ -9,6 +9,7 @@ import 'package:sitedrop_core/app/theme/colors.dart';
 import 'package:sitedrop_core/core/utils/helpers.dart';
 import 'package:sitedrop_core/data/models/order.dart';
 import '../../providers/order_provider.dart';
+import '../../providers/cart_provider.dart';
 import '../../widgets/buyer/order_status_chip.dart';
 import '../../widgets/common/app_back_button.dart';
 import '../../widgets/common/buyer_bottom_nav.dart';
@@ -20,10 +21,10 @@ class OrderHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ordersAsync = ref.watch(ordersProvider);
-
+    ref.watch(cartProvider);
     return Scaffold(
       backgroundColor: context.palette.background,
-      bottomNavigationBar: const BuyerBottomNav(),
+      bottomNavigationBar: BuyerBottomNav(),
       appBar: AppBar(
         backgroundColor: context.palette.surface,
         elevation: 0,

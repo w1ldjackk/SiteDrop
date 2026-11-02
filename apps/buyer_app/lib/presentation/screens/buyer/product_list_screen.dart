@@ -6,6 +6,7 @@ import 'package:sitedrop_core/app/routes/route_names.dart';
 import 'package:sitedrop_core/app/theme/colors.dart';
 import 'package:sitedrop_core/core/constants/app_constants.dart';
 import '../../providers/product_provider.dart';
+import '../../providers/cart_provider.dart';
 import '../../widgets/buyer/product_card.dart';
 import '../../widgets/common/app_back_button.dart';
 import '../../widgets/common/buyer_bottom_nav.dart';
@@ -75,10 +76,11 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
         : _selectedCategory != null
         ? ref.watch(productsByCategoryProvider(_selectedCategory!))
         : ref.watch(productsProvider);
+    ref.watch(cartProvider);
 
     return Scaffold(
       backgroundColor: context.palette.background,
-      bottomNavigationBar: const BuyerBottomNav(),
+      bottomNavigationBar: BuyerBottomNav(),
       appBar: AppBar(
         backgroundColor: context.palette.surface,
         elevation: 0,
